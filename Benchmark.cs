@@ -6,8 +6,8 @@ namespace AVOX2
     public class Benchmark
     {
         private Stopwatch watch = new Stopwatch();
-        private long caclmemory1;
-        private long caclmemory2;
+        private long startmemory;
+        private long endmemory;
 
         public void Start()
         {
@@ -32,25 +32,25 @@ namespace AVOX2
         {
             Process proc = Process.GetCurrentProcess();
             proc.Refresh();
-            caclmemory1 = proc.WorkingSet64;
-            caclmemory1 /= 1024;
-            caclmemory1 /= 1024;
-            return caclmemory1;
+            startmemory = proc.WorkingSet64;
+            startmemory /= 1024;
+            startmemory /= 1024;
+            return startmemory;
         }
 
         public long EndRAM()
         {
             Process proc = Process.GetCurrentProcess();
             proc.Refresh();
-            caclmemory2 = proc.WorkingSet64;
-            caclmemory2 /= 1024;
-            caclmemory2 /= 1024;
-            return caclmemory2;
+            endmemory = proc.WorkingSet64;
+            endmemory /= 1024;
+            endmemory /= 1024;
+            return endmemory;
         }
 
         public long GetMemory()
         {
-            return caclmemory2 - caclmemory1;
+            return endmemory - startmemory;
         }
     }
 }

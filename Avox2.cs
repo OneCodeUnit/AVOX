@@ -1,32 +1,21 @@
-﻿global using System.Drawing;
-global using static System.Math;
+﻿using System;
 using static AVOX2.Operation;
 using static AVOX2.VoxImageBasic;
 
 namespace AVOX2
 {
-    //В данном класе определяется главная функция программы. Через неё всё вызывается
     class Program
     {
-        static int Main()
+        //Главная функция программы
+        static int Main(string[] args)
         {
             Console.WriteLine("Start");
             double seconds;
 
-            //Benchmark time1 = new();
-            //time1.Start();
-            //time1.StartRAM();
-            //Image("Z");
-            //time1.EndRAM();
-            //time1.End();
-            //seconds = time1.GetSeconds();
-            //Console.WriteLine("Megabytes in use " + time1.GetMemory());
-            //Console.WriteLine("Classical " + seconds);
-
             Benchmark time2 = new();
             time2.Start();
             time2.StartRAM();
-            NewImage("Z", true);
+            NewImage();
             time2.EndRAM();
             time2.End();
             seconds = time2.GetSeconds();

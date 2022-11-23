@@ -1,4 +1,9 @@
-﻿namespace AVOX2
+﻿using System;
+using System.IO;
+using System.Drawing;
+using static System.Math;
+
+namespace AVOX2
 {
     //В данном класе определяются вспомогательные для вычислений функции
     internal class Calc
@@ -13,6 +18,7 @@
             double color = R + 256 * G + 256 * 256 * B;
             return (2 * color - p) / p;
         }
+
         //Сохранение файла с проверкой на наличие этого файла
         internal static void ForceSave(string s, Bitmap field)
         {
@@ -27,6 +33,7 @@
                 field.Save(s, format);
             }
         }
+
         //Сохранение файла с проверкой на наличие этого файла с возможностью выбрать формат изображения
         internal static void NewForceSave(string s, Bitmap field, System.Drawing.Imaging.ImageFormat format)
         {
@@ -40,6 +47,7 @@
                 field.Save(s, format);
             }
         }
+
         //Перекодирование значения в точке в цвет
         internal static Color SetColor(double X, bool color)
         {
@@ -57,23 +65,13 @@
             }
         }
 
-        //Зачение функции 3 в точке
-        internal static double GetZ(double x, double y)
-        {
-            //double temp = Log(x * x * x + y, 2);
-            //double temp = Pow(x * x - 8 * x + 12 - y, 2);
-            double temp = Pow((x + 50), 2) + Pow((y + 50), 2) - 144;
-            //double temp = Pow(2 * Sin(Sqrt(x * x + y * y) + 2 * y), 3);
-            return temp;
-        }
-        //Зачение функции 1 в точке
+        //Значение функции 1, 2 и 3 в точке x,y
         internal static double GetF(double x, double y)
         {
             double temp = x * x - y;
             //double temp = 5 * (y * Sin(PI * x) + x * x * Cos(PI * y));
             return temp;
         }
-        //Зачение функции 2 в точке
         internal static double GetG(double x, double y)
         {
             double temp = x * x - 8 * x + 12 - y;
@@ -82,6 +80,15 @@
             //double temp = 2 * Sin(Sqrt(x * x + y * y) + 2 * Pow(Abs(y), Abs(x)));
             return temp;
         }
+        internal static double GetZ(double x, double y)
+        {
+            //double temp = Log(x * x * x + y, 2);
+            //double temp = Pow(x * x - 8 * x + 12 - y, 2);
+            double temp = Pow((x + 50), 2) + Pow((y + 50), 2) - 144;
+            //double temp = Pow(2 * Sin(Sqrt(x * x + y * y) + 2 * y), 3);
+            return temp;
+        }
+
         //Варианты алгоритма возведения в степень https://habr.com/ru/post/584662/
         internal static double OldApproximatePower(double b, double e)
         {

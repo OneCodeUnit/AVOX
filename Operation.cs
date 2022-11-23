@@ -1,5 +1,8 @@
 ﻿using static AVOX2.Arithmetic;
 using static AVOX2.Calc;
+using static System.Math;
+using System;
+using System.Drawing;
 
 namespace AVOX2
 {

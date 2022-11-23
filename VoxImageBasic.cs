@@ -21,12 +21,9 @@ namespace AVOX2
         private const double stepY = (Ymax - Ymin) / size;
 
         //Создание М-образов функции
-        internal static partial string[] NewImage(string code, bool color);
+        internal static partial string[] NewImage(string code = "Z", bool color = true);
 
         //Создание М-образов унарных арифметических функций в RGB
         //internal static partial string[] NewVoxImage(string[] F, string code, double D);
-
-        //Создание М-образов унарных арифметических функций в оттенках серого
-        //internal static partial string[] NewVoxImageGray(string[] F, string code, double D);
     }
 }

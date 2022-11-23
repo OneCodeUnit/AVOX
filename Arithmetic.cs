@@ -1,4 +1,6 @@
-﻿namespace AVOX2
+﻿using static System.Math;
+
+namespace AVOX2
 {
     //В данном класе вычисляются значения воксельным подходом
     internal static class Arithmetic
