@@ -15,5 +15,8 @@ namespace AVOX2
 
         //Создание М-образов унарных арифметических функций
         internal static partial string[] NewVoxImage(string[] F, int size, double area, string code, double D, bool color = true);
+
+        //Создание М-образов бинарных арифметических функций
+        internal static partial string[] NewVoxImage(string[] F, string[] G, int size, double area, string code, bool color = true);
     }
 }

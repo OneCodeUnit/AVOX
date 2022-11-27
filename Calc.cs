@@ -56,13 +56,13 @@ namespace AVOX2
         //Значение функции 1, 2 и 3 в точке x,y
         internal static double GetF(double x, double y)
         {
-            double temp = x * x - y;
+            double temp = (x*x)/625 + (y*y)/400 - 1;
             //double temp = 5 * (y * Sin(PI * x) + x * x * Cos(PI * y));
             return temp;
         }
         internal static double GetG(double x, double y)
         {
-            double temp = x * x - 8 * x + 12 - y;
+            double temp = x * x + y * y - 625;
             //double temp = 4 / x + y;
             //double temp = 5 * (y * Sin(PI * x) + x * x * Cos(PI * y));
             //double temp = 2 * Sin(Sqrt(x * x + y * y) + 2 * Pow(Abs(y), Abs(x)));
@@ -71,7 +71,8 @@ namespace AVOX2
         internal static double GetZ(double x, double y)
         {
             //double temp = Log(x * x * x + y, 2);
-            double temp = Pow(x * x - 8 * x + 12 - y, 2);
+            double temp = ((x * x) / 625 + (y * y) / 400 - 1) + (x * x + y * y - 625);
+            //double temp = (x * x - y)*(x * x - 8 * x + 12 - y);
             //double temp = Pow((x + 50), 2) + Pow((y + 50), 2) + 144;
             //double temp = Pow(2 * Sin(Sqrt(x * x + y * y) + 2 * y), 3);
             return temp;

@@ -11,11 +11,11 @@ namespace AVOX2
         {
             Console.WriteLine("Start");
             int size = 1200;
-            int area = 10;
+            int area = 100;
             bool color = true;
 
             NewImage(size, area, "Z", color);
-            NewVoxImage(NewImage(size, area, "G", color), size, area, "pow", 2, color);
+            NewVoxImage(NewImage(size, area, "F", color), NewImage(size, area, "G", color), size, area, "plus", color);
 
             Console.WriteLine("End");
             Console.ReadKey();
