@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Drawing;
 using System.Threading.Tasks;
-using static System.Math;
 using static AVOX2.Calc;
 
 namespace AVOX2
 {
     internal static partial class VoxImageBasic
     {
-        internal static partial string[] NewImage(string code, bool color)
+        internal static partial string[] NewImage(int size, double area, string code, bool color)
         {
             //Объект для работы с изображением
             Bitmap Bitmap_x = new(size, size, pixelformat);
             Bitmap Bitmap_y = new(size, size, pixelformat);
             Bitmap Bitmap_z = new(size, size, pixelformat);
             Bitmap Bitmap_t = new(size, size, pixelformat);
+
             //Создание более быстрых битмапов на указателях
             LockBitmap lockBitmap_x = new(Bitmap_x);
             LockBitmap lockBitmap_y = new(Bitmap_y);
@@ -27,6 +27,16 @@ namespace AVOX2
                 P = P_RGB;
             else
                 P = P_Gray;
+
+            //Размер области, на которой находятся значения функции
+            double Xmin = -area;
+            double Xmax = area;
+            double Ymin = -area;
+            double Ymax = area;
+
+            //Сжатие или растяжение области значений до размера выходного изображения
+            double stepX = (Xmax - Xmin) / size;
+            double stepY = (Ymax - Ymin) / size;
 
             //Блокировка
             lockBitmap_x.LockBits();
@@ -72,6 +82,11 @@ namespace AVOX2
                                     z2 = GetG(x2, y2);
                                     z3 = GetG(x3, y3);
                                     break;
+                                case "Z":
+                                    z1 = GetZ(x1, y1);
+                                    z2 = GetZ(x2, y2);
+                                    z3 = GetZ(x3, y3);
+                                    break;
                                 default:
                                     z1 = GetZ(x1, y1);
                                     z2 = GetZ(x2, y2);
@@ -79,27 +94,26 @@ namespace AVOX2
                                     break;
                             }
 
-                            double A1 = y1 * (z2 - z3) - y2 * (z1 - z3) + y3 * (z1 - z2);
-                            double A2 = -(x1 * (z2 - z3) - x2 * (z1 - z3) + x3 * (z1 - z2));
-                            double A3 = x1 * (y2 - y3) - x2 * (y1 - y3) + x3 * (y1 - y2);
-                            double A4 = -(x1 * (y2 * z3 - y3 * z2) - x2 * (y1 * z3 - y3 * z1) + x3 * (y1 * z2 - y2 * z1));
+                            //Коэффициенты уравнения проскости из разложения матрицы
+                            double a1 = y1 * (z2 - z3) - y2 * (z1 - z3) + y3 * (z1 - z2);
+                            double a2 = -(x1 * (z2 - z3) - x2 * (z1 - z3) + x3 * (z1 - z2));
+                            double a3 = x1 * (y2 - y3) - x2 * (y1 - y3) + x3 * (y1 - y2);
+                            double a4 = -(x1 * (y2 * z3 - y3 * z2) - x2 * (y1 * z3 - y3 * z1) + x3 * (y1 * z2 - y2 * z1));
 
-                            double norm = Sqrt((A1 * A1) + (A2 * A2) + (A3 * A3) + (A4 * A4));
-                            double Nx = A1 / norm;
-                            double Ny = A2 / norm;
-                            double Nz = A3 / norm;
-                            double Nt = A4 / norm;
+                            //Нормирование нормой n
+                            double n = Math.Sqrt((a1 * a1) + (a2 * a2) + (a3 * a3) + (a4 * a4));
+                            double n1 = a1 / n;
+                            double n2 = a2 / n;
+                            double n3 = a3 / n;
+                            double n4 = a4 / n;
 
-                            //if (Nx == 0) Nx = 0.000000000000000000001;
-                            //if (Ny == 0) Ny = 0.000000000000000000001;
-                            //if (Nz == 0) Nz = 0.000000000000000000001;
-                            //if (Nt == 0) Nt = 0.000000000000000000001;
+                            //Преобразование нормального векторного поля в цвет
+                            double Cx = (n1 + 1) * P / 2;
+                            double Cy = (n2 + 1) * P / 2;
+                            double Cz = (n3 + 1) * P / 2;
+                            double Ct = (n4 + 1) * P / 2;
 
-                            double Cx = (Nx + 1) * P / 2;
-                            double Cy = (Ny + 1) * P / 2;
-                            double Cz = (Nz + 1) * P / 2;
-                            double Ct = (Nt + 1) * P / 2;
-
+                            //Запись цвета в пиксель
                             lockBitmap_x.SetPixel(i, j, SetColor(Cx, color));
                             lockBitmap_y.SetPixel(i, j, SetColor(Cy, color));
                             lockBitmap_z.SetPixel(i, j, SetColor(Cz, color));
@@ -121,13 +135,14 @@ namespace AVOX2
             string y = "0" + code + "Cy." + imageformat;
             string z = "0" + code + "Cz." + imageformat;
             string t = "0" + code + "Ct." + imageformat;
+
             //Сохранение изображений в выбранном формате
             Bitmap_x.Save(x, imageformat);
             Bitmap_y.Save(y, imageformat);
             Bitmap_z.Save(z, imageformat);
             Bitmap_t.Save(t, imageformat);
 
-            Console.WriteLine("New " + code + " Done");
+            Console.WriteLine(code + " completed");
             //Возвращение пути к файлам
             string[] result = { x, y, z, t };
             return result;

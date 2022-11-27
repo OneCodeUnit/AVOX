@@ -9,6 +9,16 @@ namespace AVOX2
     internal class Calc
     {
         //Перекодирование цвета пикселя выбранной точки в значение
+        internal static int GetValue(int x, int y, LockBitmap A)
+        {
+            Color RGB = A.GetPixel(x, y);
+            byte R = RGB.R;
+            byte G = RGB.G;
+            byte B = RGB.B;
+            int color = R + 256 * G + 256 * 256 * B;
+            return color;
+        }
+
         internal static double GetValue(int x, int y, Bitmap A, double p)
         {
             Color RGB = A.GetPixel(x, y);
@@ -19,50 +29,28 @@ namespace AVOX2
             return (2 * color - p) / p;
         }
 
-        //Сохранение файла с проверкой на наличие этого файла
-        internal static void ForceSave(string s, Bitmap field)
-        {
-            System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Bmp;
-            if (File.Exists(s))
-            {
-                File.Delete(s);
-                field.Save(s, format);
-            }
-            else
-            {
-                field.Save(s, format);
-            }
-        }
-
-        //Сохранение файла с проверкой на наличие этого файла с возможностью выбрать формат изображения
-        internal static void NewForceSave(string s, Bitmap field, System.Drawing.Imaging.ImageFormat format)
-        {
-            if (File.Exists(s))
-            {
-                File.Delete(s);
-                field.Save(s, format);
-            }
-            else
-            {
-                field.Save(s, format);
-            }
-        }
-
         //Перекодирование значения в точке в цвет
         internal static Color SetColor(double X, bool color)
         {
             if (color)
             {
-                double B = Floor(X / (256 * 256));
-                double G = Floor((X - (B * 256 * 256)) / 256);
-                double R = Floor(X - (G * 256) - (B * 256 * 256));
-                return Color.FromArgb(Convert.ToInt32(R), Convert.ToInt32(G), Convert.ToInt32(B));
+                int B = (int)Floor(X / (256 * 256));
+                int G = (int)Floor((X - (B * 256 * 256)) / 256);
+                int R = (int)Floor(X - (G * 256) - (B * 256 * 256));
+                return Color.FromArgb(R, G, B);
             }
             else
             {
                 int A = (int)X;
                 return Color.FromArgb(A, A, A);
             }
+        }
+        internal static Color SetColor(double X)
+        {
+            int B = (int)Floor(X / (256 * 256));
+            int G = (int)Floor((X - (B * 256 * 256)) / 256);
+            int R = (int)Floor(X - (G * 256) - (B * 256 * 256));
+            return Color.FromArgb(R, G, B);
         }
 
         //Значение функции 1, 2 и 3 в точке x,y
@@ -83,8 +71,8 @@ namespace AVOX2
         internal static double GetZ(double x, double y)
         {
             //double temp = Log(x * x * x + y, 2);
-            //double temp = Pow(x * x - 8 * x + 12 - y, 2);
-            double temp = Pow((x + 50), 2) + Pow((y + 50), 2) - 144;
+            double temp = Pow(x * x - 8 * x + 12 - y, 2);
+            //double temp = Pow((x + 50), 2) + Pow((y + 50), 2) + 144;
             //double temp = Pow(2 * Sin(Sqrt(x * x + y * y) + 2 * y), 3);
             return temp;
         }

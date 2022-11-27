@@ -10,17 +10,12 @@ namespace AVOX2
         static int Main(string[] args)
         {
             Console.WriteLine("Start");
-            double seconds;
+            int size = 1200;
+            int area = 10;
+            bool color = true;
 
-            Benchmark time2 = new();
-            time2.Start();
-            time2.StartRAM();
-            NewImage();
-            time2.EndRAM();
-            time2.End();
-            seconds = time2.GetSeconds();
-            Console.WriteLine("Megabytes in use " + time2.GetMemory());
-            Console.WriteLine("Optimized RGB " + seconds);
+            NewImage(size, area, "Z", color);
+            NewVoxImage(NewImage(size, area, "G", color), size, area, "pow", 2, color);
 
             Console.WriteLine("End");
             Console.ReadKey();
