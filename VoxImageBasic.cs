@@ -2,6 +2,7 @@
 
 namespace AVOX2
 {
+    //Частичный класс VoxImageBasic используется для соотвествия программы паттерну "Фасад" 
     internal static partial class VoxImageBasic
     {
         //Палитра и формат изображения
@@ -13,10 +14,13 @@ namespace AVOX2
         //Создание М-образов функции
         internal static partial string[] NewImage(int size, double area, string code = "Z", bool color = true);
 
-        //Создание М-образов унарных арифметических функций
+        //Создание М-образов и рассчёт унарных арифметических функций
         internal static partial string[] NewVoxImage(string[] F, int size, double area, string code, double D, bool color = true);
 
-        //Создание М-образов бинарных арифметических функций
+        //Создание М-образов и рассчёт бинарных арифметических функций
         internal static partial string[] NewVoxImage(string[] F, string[] G, int size, double area, string code, bool color = true);
+
+        //Создание М-образов и рассчёт для логарифмирования
+        internal static partial string[] NewVoxImageLogarithm(string[] F, int size, double area, double lbase, double step, bool color = true);
     }
 }

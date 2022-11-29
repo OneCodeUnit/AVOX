@@ -10,12 +10,15 @@ namespace AVOX2
         static int Main(string[] args)
         {
             Console.WriteLine("Start");
-            int size = 1200;
+            int size = 120;
             int area = 100;
             bool color = true;
 
-            NewImage(size, area, "Z", color);
-            NewVoxImage(NewImage(size, area, "F", color), NewImage(size, area, "G", color), size, area, "plus", color);
+            //string[] A = NewImage(size, area, "F", color);
+            //string[] B = NewImage(size, area, "G", color);
+            string[] C = NewImage(size, area, "Z", color);
+
+            //NewVoxImage(NewImage(size, area, "F", color), NewImage(size, area, "G", color), size, area, "plus", color);
 
             Console.WriteLine("End");
             Console.ReadKey();

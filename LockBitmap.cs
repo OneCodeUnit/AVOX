@@ -9,6 +9,7 @@ namespace AVOX2
     //В данном класе определяется класс более быстрого BitMap https://www.codeproject.com/Tips/240428/Work-with-Bitmaps-Faster-in-Csharp-3
     internal class LockBitmap : IDisposable
     {
+        #nullable disable
         private readonly Bitmap source;
         private IntPtr iptr = IntPtr.Zero;
         private BitmapData bitmapData;
