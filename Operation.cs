@@ -14,12 +14,12 @@ namespace AVOX2
         //static Stopwatch Watch1 = new();
         private const double P = 16777215;
         //private const double P = 255;
-        private const int size = 500;
+        private const int size = 5000;
 
-        private const double Xmin = -10;
-        private const double Xmax = 10;
-        private const double Ymin = -10;
-        private const double Ymax = 10;
+        private const double Xmin = -100;
+        private const double Xmax = 100;
+        private const double Ymin = -100;
+        private const double Ymax = 100;
         private const double stepX = (Xmax - Xmin) / size;
         private const double stepY = (Ymax - Ymin) / size;
 

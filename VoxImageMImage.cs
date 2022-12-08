@@ -46,6 +46,7 @@ namespace AVOX2
 
             //Запуск потоков по числу потоков процессора
             int cores = Environment.ProcessorCount;
+            //int cores = 4;
             Task[] tasks = new Task[cores];
 
             for (int tasknumber = 0; tasknumber < tasks.Length; tasknumber++)

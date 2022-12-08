@@ -111,21 +111,21 @@ namespace AVOX2
 
                     }
                     //Этап 2. Поиск значения с заданой точнотью между двумя соседними целыми числами (дробные степени)
-                    while (true)
-                    {
-                        start = Pow(lbase, h_start);
-                        end = Pow(lbase, h_end);
-                        if ((zf >= start) && (zf <= end))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            h_start = h_end;
-                            h_end = h_end + 1;
-                            k++;
-                        }
-                    }
+                    //while (true)
+                    //{
+                    //    start = Pow(lbase, h_start);
+                    //    end = Pow(lbase, h_end);
+                    //    if ((zf >= start) && (zf <= end))
+                    //    {
+                    //        break;
+                    //    }
+                    //    else
+                    //    {
+                    //        h_start = h_end;
+                    //        h_end = h_end + 1;
+                    //        k++;
+                    //    }
+                    //}
 
                     //f.Write(string.Format("{0:f1}", D) + " ");
                     //f1.Write(string.Format("{0:f1}", Zf) + " ");
