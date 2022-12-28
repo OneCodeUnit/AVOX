@@ -38,6 +38,7 @@ namespace AVOX2
                 int G = (int)Floor((X - (B * 256 * 256)) / 256);
                 int R = (int)Floor(X - (G * 256) - (B * 256 * 256));
                 return Color.FromArgb(R, G, B);
+                //return Color.FromArgb((int)X);
             }
             else
             {

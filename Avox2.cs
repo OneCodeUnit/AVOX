@@ -10,13 +10,13 @@ namespace AVOX2
         static int Main(string[] args)
         {
             Console.WriteLine("Start");
-            int size = 5000;
+            int size = 500;
             int area = 100;
             bool color = true;
             Benchmark time1 = new Benchmark();
             Benchmark time2 = new Benchmark();
 
-            //string[] A = NewImage(size, area, "F", color);
+            string[] A = Image(size, area, "Z", color);
             //string[] B = NewImage(size, area, "G", color);
 
             time2.StartRAM();
